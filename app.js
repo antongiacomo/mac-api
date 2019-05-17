@@ -19,7 +19,8 @@ var ioreg = '/usr/sbin/ioreg'
 var app = express()
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(express.static(path.join(__dirname, 'public')))
-
+app.use(bodyParser.raw());
+app.use(bodyParser.json());
 var logFormat = "'[:date[iso]] - :remote-addr - :method :url :status :response-time ms - :res[content-length]b'"
 app.use(morgan(logFormat))
 
@@ -35,6 +36,26 @@ app.post('/wake', function(req, res){
   exec("caffeinate -u -t 1", function(error, stdout, stderr){
     res.send('OK')
   })
+})
+app.get('/display',function(req,res){
+
+
+    exec(`ioreg -n IODisplayWrangler | grep -i IOPowerManagement | perl -pe 's/^.*DevicePowerState\\"=([0-9]+).*$/\\1/'`,
+    function(error, stdout, stderr){ 
+      res.send(stdout.trim())
+     });
+})
+app.post('/display', function(req, res){
+  console.log(req.body.command)
+  if(req.body.command == "on"){
+    exec("caffeinate -u -t 1", function(error, stdout, stderr){
+      res.send('OK')
+    })
+  }else if(req.body.command == "off"){
+  exec("pmset displaysleepnow", function(error, stdout, stderr){
+    res.send('OK')
+  })
+}
 })
 
 app.post('/sleep_display', function(req, res){
