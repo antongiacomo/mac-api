@@ -74,7 +74,7 @@ These are the endpoints you can hit to do things.
 
 ## Homeassistant Setup
 
-```
+```yaml
   - platform: rest
     name: "schermi"
     resource: http://192.168.1.220:8686/display
