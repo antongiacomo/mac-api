@@ -70,3 +70,17 @@ These are the endpoints you can hit to do things.
 * fork
 * create a feature branch
 * open a Pull Request
+
+
+## Homeassistant Setup
+
+```
+  - platform: rest
+    name: "schermi"
+    resource: http://192.168.1.220:8686/display
+    body_on: '{"command": "on"}'
+    body_off: '{"command": "off"}'
+    is_on_template: '{{value == "4"}}'
+    headers:
+      Content-Type: application/json
+ ```
