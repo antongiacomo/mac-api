@@ -19,7 +19,9 @@
     "express": "^4.16.4",
     "is-camera-on": "^2.0.0",
     "morgan": "^1.9.1",
+    "osx-battery": "^4.0.0",
     "parameterize": "^0.0.7",
-    "plist": "3.0.1"
+    "plist": "3.0.1",
+    "run-applescript": "^3.2.0"
   }
 }
